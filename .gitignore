@@ -1,0 +1,112 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# =================== #
+# Android Studio IDE  #
+# =================== #
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# =================== #
+# Build System Output #
+# =================== #
+/build/
+/*/build/
+.gradle/
+**/build/
+local.properties
+.gradle/
+/out/
+captures/
+
+# ========== #
+# OS Junk    #
+# ========== #
+.DS_Store
+Thumbs.db
+
+# ======================== #
+# Kotlin & Java specifics #
+# ======================== #
+*.class
+*.jar
+*.war
+*.ear
+
+# Kotlin build cache
+.kotlinc/
+
+# ================= #
+# Android specific  #
+# ================= #
+# Signing key files
+*.jks
+*.keystore
+
+# Google Services
+google-services.json
+app/google-services.json
+**/google-services.json
+
+# Crashlytics / Firebase
+crashlytics-build.properties
+fabric.properties
+
+# ================== #
+# Jetpack Compose    #
+# ================== #
+.compose-cache/
+**/.compose-cache/
+
+# ================ #
+# Log/Reports/etc  #
+# ================ #
+*.log
+*.hprof
+*.stacktrace
+
+# ============== #
+# NDK / CMake    #
+# ============== #
+.cxx/
+.externalNativeBuild/
+
+# =========================== #
+# Local Configs & Envs       #
+# =========================== #
+.env
+.env.local
+*.local
+*.envrc
+
+# ========================= #
+# Android Studio Generated #
+# ========================= #
+.navigation/
+*.bak
+*.tmp
+
+# ============= #
+# Miscellaneous #
+# ============= #
+*.orig
+*.rej
+*.swp
+*~
+.idea/modules.xml
+

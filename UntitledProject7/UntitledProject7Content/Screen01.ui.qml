@@ -5,6 +5,7 @@ This is a UI file (.ui.qml) that is intended to be edited in Qt Design Studio on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.3
+import QtMultimedia
 import UntitledProject7
 
 Rectangle {
@@ -71,9 +72,75 @@ Rectangle {
                 color: "#40000000"
             }
             Rectangle {
+                id: timelinePanel
                 anchors.fill: parent
                 radius: panelRadius
                 color: "#FFFFFF"
+
+                property real loopDuration: 5000
+                property real playheadX: (width * ((Date.now() - startTime) % loopDuration) / loopDuration)
+                property double startTime: Date.now()
+                property var events: []
+
+                Timer {
+                    id: playheadTimer
+                    interval: 16
+                    repeat: true
+                    running: false
+                    onTriggered: timelinePanel.playheadX = (timelinePanel.width * ((Date.now() - timelinePanel.startTime) % timelinePanel.loopDuration) / timelinePanel.loopDuration)
+                }
+
+                Rectangle {
+                    id: playhead
+                    width: 3
+                    radius: 1.5
+                    color: "#FF5252"
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    x: timelinePanel.playheadX - width/2
+                }
+
+
+                Repeater {
+                    id: eventRepeater
+                    model: timelinePanel.events.length
+                    Rectangle {
+                        width: 8
+                        radius: 4
+                        height: parent.height
+                        color: "#884CAF50"
+                        x: timelinePanel.width * (timelinePanel.events[index] / timelinePanel.loopDuration) - width/2
+                    }
+                }
+
+                SoundEffect {
+                    id: hiHat
+                    source: Qt.resolvedUrl("sounds/hihat.wav")
+                }
+
+                function scheduleHitAtCurrentPosition() {
+                    const t = (Date.now() - timelinePanel.startTime) % timelinePanel.loopDuration
+                    timelinePanel.events.push(t)
+                }
+
+                function processPlayback() {
+                    const now = (Date.now() - timelinePanel.startTime) % timelinePanel.loopDuration
+                    for (let i = 0; i < timelinePanel.events.length; ++i) {
+                        const et = timelinePanel.events[i]
+                        const diff = now - et
+                        if (diff >= 0 && diff < playheadTimer.interval) {
+                            hiHat.play()
+                        }
+                    }
+                }
+
+                Timer {
+                    id: playbackTimer
+                    interval: 5
+                    repeat: true
+                    running: false
+                    onTriggered: timelinePanel.processPlayback()
+                }
             }
         }
     }
@@ -136,6 +203,7 @@ Rectangle {
                 }
                 onPressed: opacity = 0.7
                 onReleased: opacity = 1.0
+                onClicked: if (timelinePanel.events.length > 0) timelinePanel.events.pop()
             }
         }
 
@@ -181,6 +249,7 @@ Rectangle {
                 }
                 onPressed: opacity = 0.7
                 onReleased: opacity = 1.0
+                onClicked: timelinePanel.scheduleHitAtCurrentPosition()
             }
         }
 
@@ -200,6 +269,7 @@ Rectangle {
                 anchors.fill: parent
                 radius: buttonCorner
                 text: "RECORD"
+                checkable: true
                 font.pointSize: buttonFontSize * 0.75
                 font.family: "Verdana"
                 background: Rectangle {
@@ -226,6 +296,16 @@ Rectangle {
                 }
                 onPressed: opacity = 0.7
                 onReleased: opacity = 1.0
+                onToggled: {
+                    if (checked) {
+                        timelinePanel.startTime = Date.now()
+                        playheadTimer.running = true
+                        playbackTimer.running = true
+                    } else {
+                        playheadTimer.running = false
+                        playbackTimer.running = false
+                    }
+                }
             }
         }
     }

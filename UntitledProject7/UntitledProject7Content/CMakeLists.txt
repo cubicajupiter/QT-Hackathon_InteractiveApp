@@ -9,8 +9,11 @@ qt6_add_qml_module(UntitledProject7Content
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
-        "Screen01.ui.qml"
         "App.qml"
+        "AudioBridge.qml"
+        "Screen01.ui.qml"
+    RESOURCES
+        "sounds/hihat.wav"
 )
 
 

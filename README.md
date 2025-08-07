@@ -5,7 +5,7 @@ User(s) can give input in the form of taps (sound picked up by microphone).
 The sound of the taps create notes on a notation interface, along with sound effects and graphics.
 
 ## Design
-### Modules: QT shaders, 3D assets, and Multimedia. (Sound?)
+### Modules: QT shaders and Multimedia. (Sound?)
 ### Languages: C++ and QLM.
 Android Studio. QT Designer for UI and VFX.
 The system loops through a 120 BPM 4/4 track onto which the notations are inserted. Multiple tracks can be overlaid for different sounds. The primary sounds are thunder and clap. A hi-hat track can be inserted on top.
@@ -28,3 +28,5 @@ Interface lower part is Data visualization of the notations, essentially.  The l
 
 ## SFX
 Sound effects: thunder and clap.
+    Since there is a track-overlaying-interface for multiple-track combination into notations and for the playback of the saved whole, synthesized audio needs to be saved to memory.
+    For real time playback of synthesized thunder & clap SFX modulated by amplitude (and by pitch if time constraints allow), it is enough to access raw audio data input and play it back in push and pull mode through the Qt Multimedia module. The module contains the C++ classes QAudioSink (raw audio data output) and QAudioSource (raw audio data input) to/from a QIODevice.

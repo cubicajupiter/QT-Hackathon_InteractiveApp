@@ -14,7 +14,8 @@ qt6_add_qml_module(UntitledProject7Content
         "App.qml"
     RESOURCES
         "sounds/hihat.wav"
-        "html/strudelHost.js"
+        "sounds/bass.wav"
+        "sounds/snare.wav"
+        # Removed unused Strudel resource
+        # "html/strudel_repl_inline.js"
 )
-
-

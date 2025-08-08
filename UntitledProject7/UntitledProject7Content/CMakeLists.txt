@@ -14,6 +14,7 @@ qt6_add_qml_module(UntitledProject7Content
         "App.qml"
     RESOURCES
         "sounds/hihat.wav"
+        "html/strudelHost.js"
 )
 
 

@@ -6,7 +6,7 @@ plugins {
 
 QtBuild {
     qtPath = file("../Qt/6.9.1")
-    projectPath = file("../UntitledProject7")
+    projectPath = file("../../UntitledProject1")
 }
 
 android {

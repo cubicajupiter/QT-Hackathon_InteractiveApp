@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Strudel Host</title>
+  <!-- During development you can load from CDN. For production consider bundling local copy instead. -->
+  <script src="https://unpkg.com/@strudel/repl@latest"></script>
+</head>
+<body>
+  <script>
+    // Ensure the Strudel environment is initialized in the page.
+    function ensureStrudel() {
+      try {
+        if (typeof initStrudel === "function") {
+          initStrudel();
+        }
+      } catch (e) {
+        console.warn("initStrudel not available or failed:", e);
+      }
+    }
+
+    // Exposed API callable from QML's WebEngineView.runJavaScript(...)
+    window.strudelPlayPattern = function (patternCode) {
+      ensureStrudel();
+      try {
+        // patternCode is a JS snippet string such as:
+        // "note('<c _ e _ c _ e _>').jux(rev).play();"
+        // eval it inside the page.
+        eval(patternCode);
+      } catch (err) {
+        console.error("strudelPlayPattern eval error:", err, patternCode);
+      }
+    };
+
+    window.strudelStop = function () {
+      try {
+        if (typeof hush === "function") hush();
+      } catch (e) {
+        console.warn("strudelStop failed:", e);
+      }
+    };
+  </script>
+</body>
+</html>

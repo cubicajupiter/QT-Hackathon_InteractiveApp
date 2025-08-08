@@ -3,7 +3,7 @@ package com.example.response
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import org.qtproject.example.UntitledProject7App.UntitledProject7Content.Screen01
+import org.qtproject.example.UntitledProject1App.UntitledProject1Content.Screen01
 import org.qtproject.qt.android.QtQuickView
 import org.qtproject.qt.android.QtQuickViewContent
 

@@ -1,12 +1,12 @@
 # Thunderstruck (Name WIP)
 
 ## Goal
-User(s) can give input in the form of taps (sound picked up by microphone).
-The sound of the taps create notes on a notation interface, along with sound effects and graphics.
+User(s) can give input in the form of taps on the Hit button or on the table (sound picked up by microphone).
+Tapping the hit button, or the sound of the taps, create notes on a notation interface, along with sound effects and graphics.
 
 ## Design
 ### Modules: QT shaders and Multimedia. (Sound?)
-### Languages: C++ and QLM.
+### Languages: Kotlin, C++ and QLM.
 Android Studio. QT Designer for UI and VFX.
 The system loops through a 120 BPM 4/4 track onto which the notations are inserted. Multiple tracks can be overlaid for different sounds. The primary sounds are thunder and clap. A hi-hat track can be inserted on top.
 

@@ -323,12 +323,13 @@ Rectangle {
             Layout.maximumWidth: buttonWidth
             Layout.fillHeight: true
 
-            // button shadow
+            // Modern elevated button shadow
             Rectangle {
                 anchors.fill: parent
                 y: 4
                 radius: buttonCorner
-                color: "#30000000"
+                color: "#50000000"
+                opacity: 0.7
             }
             // button
             RoundButton {
@@ -340,27 +341,52 @@ Rectangle {
                 background: Rectangle {
                     anchors.fill: parent
                     radius: parent.radius
+                    border.width: 1
+                    border.color: "#6E45C1"
                     gradient: Gradient {
                         GradientStop {
                             position: 0
-                            color: "#5E35B1"
+                            color: "#4A2D91"
                         }
                         GradientStop {
                             position: 1
-                            color: "#3949AB"
+                            color: "#2A3084"
                         }
+                    }
+                    // Inner glow effect
+                    Rectangle {
+                        anchors.fill: parent
+                        anchors.margins: 1
+                        radius: parent.radius - 1
+                        color: "transparent"
+                        border.width: 1
+                        border.color: "#8061D1"
+                        opacity: 0.5
                     }
                 }
                 contentItem: Text {
                     text: parent.text
-                    font: parent.font
-                    color: "white"
+                    font {
+                        family: parent.font.family
+                        pointSize: parent.font.pointSize
+                        bold: true
+                    }
+                    color: "#FFFFFF"
+                    opacity: parent.pressed ? 0.8 : 1.0
                     anchors.centerIn: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
-                onPressed: opacity = 0.7
-                onReleased: opacity = 1.0
+                onPressed: {
+                    opacity = 0.9
+                    scale = 0.97
+                }
+                onReleased: {
+                    opacity = 1.0
+                    scale = 1.0
+                }
+
+                Behavior on scale { NumberAnimation { duration: 100 } }
                 onClicked: {
                     if (timelinePanel.events.length > 0) timelinePanel.events.pop();
                     if (animatedFlipable && animatedFlipable.reactToHit) {
@@ -376,11 +402,13 @@ Rectangle {
             Layout.maximumWidth: buttonWidth
             Layout.fillHeight: true
 
+            // Modern elevated button shadow
             Rectangle {
                 anchors.fill: parent
                 y: 4
                 radius: buttonCorner
-                color: "#30000000"
+                color: "#50000000"
+                opacity: 0.7
             }
             RoundButton {
                 anchors.fill: parent
@@ -391,27 +419,52 @@ Rectangle {
                 background: Rectangle {
                     anchors.fill: parent
                     radius: parent.radius
+                    border.width: 1
+                    border.color: "#FF6B94"
                     gradient: Gradient {
                         GradientStop {
                             position: 0
-                            color: "#5E35B1"
+                            color: "#F44362"
                         }
                         GradientStop {
                             position: 1
-                            color: "#3949AB"
+                            color: "#BA3157"
                         }
+                    }
+                    // Inner glow effect
+                    Rectangle {
+                        anchors.fill: parent
+                        anchors.margins: 1
+                        radius: parent.radius - 1
+                        color: "transparent"
+                        border.width: 1
+                        border.color: "#FF8DA9"
+                        opacity: 0.5
                     }
                 }
                 contentItem: Text {
                     text: parent.text
-                    font: parent.font
-                    color: "white"
+                    font {
+                        family: parent.font.family
+                        pointSize: parent.font.pointSize
+                        bold: true
+                    }
+                    color: "#FFFFFF"
+                    opacity: parent.pressed ? 0.8 : 1.0
                     anchors.centerIn: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
-                onPressed: opacity = 0.7
-                onReleased: opacity = 1.0
+                onPressed: {
+                    opacity = 0.9
+                    scale = 0.97
+                }
+                onReleased: {
+                    opacity = 1.0
+                    scale = 1.0
+                }
+
+                Behavior on scale { NumberAnimation { duration: 100 } }
                 onClicked: {
                     timelinePanel.scheduleHitAtCurrentPosition();
                     if (animatedFlipable && animatedFlipable.reactToHit) {
@@ -427,11 +480,13 @@ Rectangle {
             Layout.maximumWidth: buttonWidth
             Layout.fillHeight: true
 
+            // Modern elevated button shadow
             Rectangle {
                 anchors.fill: parent
                 y: 4
                 radius: buttonCorner
-                color: "#30000000"
+                color: "#50000000"
+                opacity: 0.7
             }
             RoundButton {
                 anchors.fill: parent
@@ -443,27 +498,52 @@ Rectangle {
                 background: Rectangle {
                     anchors.fill: parent
                     radius: parent.radius
+                    border.width: 1
+                    border.color: parent.parent.checked ? "#FF6B6B" : "#6E45C1"
                     gradient: Gradient {
                         GradientStop {
                             position: 0
-                            color: "#5E35B1"
+                            color: parent.parent.checked ? "#F44336" : "#4A2D91"
                         }
                         GradientStop {
                             position: 1
-                            color: "#3949AB"
+                            color: parent.parent.checked ? "#D32F2F" : "#2A3084"
                         }
+                    }
+                    // Inner glow effect
+                    Rectangle {
+                        anchors.fill: parent
+                        anchors.margins: 1
+                        radius: parent.radius - 1
+                        color: "transparent"
+                        border.width: 1
+                        border.color: parent.parent.parent.checked ? "#FF8D8D" : "#8061D1"
+                        opacity: 0.5
                     }
                 }
                 contentItem: Text {
                     text: parent.text
-                    font: parent.font
-                    color: "white"
+                    font {
+                        family: parent.font.family
+                        pointSize: parent.font.pointSize
+                        bold: true
+                    }
+                    color: "#FFFFFF"
+                    opacity: parent.pressed ? 0.8 : 1.0
                     anchors.centerIn: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
-                onPressed: opacity = 0.7
-                onReleased: opacity = 1.0
+                onPressed: {
+                    opacity = 0.9
+                    scale = 0.97
+                }
+                onReleased: {
+                    opacity = 1.0
+                    scale = 1.0
+                }
+
+                Behavior on scale { NumberAnimation { duration: 100 } }
                 onToggled: {
                     if (checked) {
                         timelinePanel.startTime = Date.now()

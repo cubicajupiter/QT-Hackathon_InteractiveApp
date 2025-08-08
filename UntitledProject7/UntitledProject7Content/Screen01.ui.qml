@@ -12,7 +12,7 @@ Rectangle {
     id: root
     width: Constants.width
     height: Constants.height
-    color: "#F0F0F3" // very light grey
+    color: "#1A1A22" // dark background
 
     // Margins & sizing
     property real margin: width * 0.05
@@ -231,7 +231,7 @@ Rectangle {
                 id: timelinePanel
                 anchors.fill: parent
                 radius: panelRadius
-                color: "#FFFFFF"
+                color: "#222233"
 
                 property real loopDuration: 5000
                 property real playheadX: (width * ((Date.now() - startTime) % loopDuration) / loopDuration)
@@ -248,11 +248,13 @@ Rectangle {
 
                 Rectangle {
                     id: playhead
-                    width: 3
-                    radius: 1.5
-                    color: "#FF5252"
+                    width: 6
+                    radius: 3
+                    color: "#FF9090"
                     anchors.top: parent.top
+                    anchors.topMargin: parent.height * 0.1
                     anchors.bottom: parent.bottom
+                    anchors.bottomMargin: parent.height * 0.1
                     x: timelinePanel.playheadX - width/2
                 }
 
@@ -264,7 +266,7 @@ Rectangle {
                         width: 8
                         radius: 4
                         height: parent.height
-                        color: "#884CAF50"
+                        color: "#CC4CAF50"
                         x: timelinePanel.width * (timelinePanel.events[index] / timelinePanel.loopDuration) - width/2
                     }
                 }

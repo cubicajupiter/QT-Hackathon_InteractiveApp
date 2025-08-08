@@ -53,11 +53,167 @@ Rectangle {
                 radius: panelRadius
                 color: "#40000000"
             }
-            // panel
-            Rectangle {
+            // panel with horizontal animated gradient moving from left to right
+            Flipable {
+                id: animatedFlipable
                 anchors.fill: parent
-                radius: panelRadius
-                color: "#FFFFFF"
+                transformOrigin: Item.Center
+                layer.enabled: true
+                layer.smooth: true
+                property bool flipped: false
+
+                // Property to animate the gradient
+                property real gradientPosition: 0.0
+
+                // Number animation to move the gradient
+                NumberAnimation on gradientPosition {
+                    from: 0.0
+                    to: 1.0
+                    duration: 5000
+                    loops: Animation.Infinite
+                }
+
+                front: Rectangle {
+                    id: frontItem
+                    anchors.fill: parent
+                    radius: panelRadius
+
+                    // Create a horizontal gradient
+                    gradient: Gradient {
+                        orientation: Gradient.Horizontal
+
+                        // Create 5 gradient stops that will be animated left to right
+                        GradientStop {
+                            id: stop1
+                            position: (animatedFlipable.gradientPosition + 0.0) % 1.0
+                            color: Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                            Behavior on color { ColorAnimation { duration: 1000 } }
+                        }
+                        GradientStop {
+                            id: stop2
+                            position: (animatedFlipable.gradientPosition + 0.2) % 1.0
+                            color: Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                            Behavior on color { ColorAnimation { duration: 1000 } }
+                        }
+                        GradientStop {
+                            id: stop3
+                            position: (animatedFlipable.gradientPosition + 0.4) % 1.0
+                            color: Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                            Behavior on color { ColorAnimation { duration: 1000 } }
+                        }
+                        GradientStop {
+                            id: stop4
+                            position: (animatedFlipable.gradientPosition + 0.6) % 1.0
+                            color: Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                            Behavior on color { ColorAnimation { duration: 1000 } }
+                        }
+                        GradientStop {
+                            id: stop5
+                            position: (animatedFlipable.gradientPosition + 0.8) % 1.0
+                            color: Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                            Behavior on color { ColorAnimation { duration: 1000 } }
+                        }
+                    }
+                }
+
+                back: Rectangle {
+                    id: backItem
+                    anchors.fill: parent
+                    radius: panelRadius
+
+                    // Create a horizontal gradient for the back side too
+                    gradient: Gradient {
+                        orientation: Gradient.Horizontal
+
+                        // Create 5 gradient stops that will be animated left to right
+                        GradientStop {
+                            id: bstop1
+                            position: (1.0 - animatedFlipable.gradientPosition + 0.0) % 1.0 // Reverse direction
+                            color: Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                            Behavior on color { ColorAnimation { duration: 1000 } }
+                        }
+                        GradientStop {
+                            id: bstop2
+                            position: (1.0 - animatedFlipable.gradientPosition + 0.2) % 1.0
+                            color: Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                            Behavior on color { ColorAnimation { duration: 1000 } }
+                        }
+                        GradientStop {
+                            id: bstop3
+                            position: (1.0 - animatedFlipable.gradientPosition + 0.4) % 1.0
+                            color: Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                            Behavior on color { ColorAnimation { duration: 1000 } }
+                        }
+                        GradientStop {
+                            id: bstop4
+                            position: (1.0 - animatedFlipable.gradientPosition + 0.6) % 1.0
+                            color: Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                            Behavior on color { ColorAnimation { duration: 1000 } }
+                        }
+                        GradientStop {
+                            id: bstop5
+                            position: (1.0 - animatedFlipable.gradientPosition + 0.8) % 1.0
+                            color: Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                            Behavior on color { ColorAnimation { duration: 1000 } }
+                        }
+                    }
+                }
+
+                states: [
+                    State {
+                        name: "back"
+                        when: animatedFlipable.flipped
+                        PropertyChanges { target: animatedFlipable; rotationY: 180 }
+                    },
+                    State {
+                        name: "front"
+                        when: !animatedFlipable.flipped
+                        PropertyChanges { target: animatedFlipable; rotationY: 0 }
+                    }
+                ]
+
+                transitions: Transition {
+                    NumberAnimation { properties: "rotationY"; duration: 600; easing.type: Easing.InOutQuad }
+                }
+
+                Timer {
+                    id: gradientTimer
+                    interval: 2000
+                    running: true
+                    repeat: true
+                    onTriggered: {
+                        // Randomly change gradient colors
+                        stop1.color = Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                        stop2.color = Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                        stop3.color = Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                        stop4.color = Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                        stop5.color = Qt.hsla(Math.random(), 0.8, 0.5, 1)
+
+                        bstop1.color = Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                        bstop2.color = Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                        bstop3.color = Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                        bstop4.color = Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                        bstop5.color = Qt.hsla(Math.random(), 0.8, 0.5, 1)
+                    }
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        animatedFlipable.flipped = !animatedFlipable.flipped;
+                    }
+                }
+
+                function reactToHit() {
+                    // Flash effect: brighter colors on the current visible side
+                    var stops = animatedFlipable.flipped ? backItem.gradient.stops : frontItem.gradient.stops;
+                    for(var i=0; i<stops.length; i++){
+                        stops[i].color = Qt.hsla(Math.random(), 1, 0.8, 1);
+                    }
+
+                    // Also trigger a flip when hit
+                    animatedFlipable.flipped = !animatedFlipable.flipped;
+                }
             }
         }
         Item {
@@ -203,7 +359,12 @@ Rectangle {
                 }
                 onPressed: opacity = 0.7
                 onReleased: opacity = 1.0
-                onClicked: if (timelinePanel.events.length > 0) timelinePanel.events.pop()
+                onClicked: {
+                    if (timelinePanel.events.length > 0) timelinePanel.events.pop();
+                    if (animatedFlipable && animatedFlipable.reactToHit) {
+                        animatedFlipable.reactToHit();
+                    }
+                }
             }
         }
 
@@ -249,7 +410,12 @@ Rectangle {
                 }
                 onPressed: opacity = 0.7
                 onReleased: opacity = 1.0
-                onClicked: timelinePanel.scheduleHitAtCurrentPosition()
+                onClicked: {
+                    timelinePanel.scheduleHitAtCurrentPosition();
+                    if (animatedFlipable && animatedFlipable.reactToHit) {
+                        animatedFlipable.reactToHit();
+                    }
+                }
             }
         }
 
